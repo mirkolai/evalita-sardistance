@@ -3,14 +3,14 @@ from machinelearning import Resource_tweet_info
 from machinelearning import Resource_quote_network
 from machinelearning import Resource_reply_network
 from machinelearning import Resource_retweet_network
-#import Resource_friend_network
+from machinelearning import Resource_friend_network
 
 users_info=Resource_user_info.User_Info()
 tweets_info=Resource_tweet_info.Tweet_Info()
 network_quote=Resource_quote_network.Quote_Network()
 network_reply=Resource_reply_network.Reply_Network()
 network_retweet=Resource_retweet_network.Retweet_Network()
-#network_friend=Resource_friend_network.Friend_Network()
+network_friend=Resource_friend_network.Friend_Network()
 
 class Tweet(object):
 
@@ -35,7 +35,7 @@ class Tweet(object):
         self.community_quote=network_quote.get_network_community(user_id)
         self.community_reply=network_reply.get_network_community(user_id)
         self.community_retweet=network_retweet.get_network_community(user_id)
-        #self.community_friend=network_friend.get_network_community(user_id)
+        self.community_friend=network_friend.get_network_community(user_id)
 
 def make_tweet(id, user_id, text, label ):
     """
