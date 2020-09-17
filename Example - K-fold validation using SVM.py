@@ -1,4 +1,5 @@
 import numpy
+from sklearn.linear_model import LogisticRegression
 from sklearn.svm.classes import SVC
 from machinelearning import Features_manager
 from utils import Database_manager
@@ -27,9 +28,30 @@ feature_types=[
             "unigram",
             "unigramhashtag"
             ]
-"""
-feature_types=[
+            
+BASELINE 1:
+
+    clf = SVC(kernel="linear")
+
+    feature_types=[
             "unigram",
+            ]
+                             
+BASELINE 2:
+
+    clf = LogisticRegression()
+
+    feature_types=[
+            "n-gram_1-3",
+            "network_retweet_community",
+            "network_friend_community"
+            ]
+                    
+           
+"""
+
+feature_types=[
+            "unigram"
             ]
 # create the feature space with all available features
 X,feature_names,feature_type_indexes=feature_manager.create_feature_space(tweets,feature_types)
@@ -44,6 +66,7 @@ kf = KFold(n_splits=5, random_state=True)
 for index_train, index_test in kf.split(X):
 
     clf = SVC(kernel="linear")
+    #clf = LogisticRegression()
 
     clf.fit(X[index_train],labels[index_train])
     test_predict = clf.predict(X[index_test])

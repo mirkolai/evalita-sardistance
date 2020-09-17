@@ -25,6 +25,7 @@ class Features_manager(object):
         """
         self.global_feature_types_list={
             "unigram":          self.get_unigram_features,
+            "n-gram_1-3":          self.get_ngram_1_3_features,
             "unigramhashtag" :    self.get_ngramshashtag_features,
             "chargrams":         self.get_nchargrams_features,
             "numhashtag":        self.get_numhashtag_features,
@@ -217,6 +218,63 @@ class Features_manager(object):
 
             return X_train, X_test, feature_names
 
+
+
+    def get_ngram_1_3_features(self, tweets, tweet_test=None):
+        """
+
+        :param tweets: Array of  Tweet objects. Training set.
+        :param tweet_test: Optional Array of  Tweet objects. Test set.
+        :return:
+
+        X_train: The feature space of the training set
+        X_test: The feature space of the test set, if test  set was defined
+        feature_names:  An array containing the names of the features used  for  creating the feature space
+        """
+        # CountVectorizer return a numpy matrix
+        # row number of tweets
+        # column number of 1-3gram in the dictionary
+
+        countVectorizer = CountVectorizer(ngram_range=(1,3),
+                                          analyzer="word",
+                                          #stop_words="english",
+                                          lowercase=True,
+                                          binary=True,
+                                          max_features=500000)
+
+        if tweet_test is None:
+            feature  = []
+            for tweet in tweets:
+
+                feature.append(tweet.text)
+
+            countVectorizer = countVectorizer.fit(feature)
+
+            X = countVectorizer.transform(feature)
+
+            feature_names=countVectorizer.get_feature_names()
+
+            return X, feature_names
+        else:
+            feature  = []
+            feature_test  = []
+            for tweet in tweets:
+
+                feature.append(tweet.text)
+
+            for tweet in tweet_test:
+
+                feature_test.append(tweet.text)
+
+
+            countVectorizer = countVectorizer.fit(feature)
+
+            X_train = countVectorizer.transform(feature)
+            X_test = countVectorizer.transform(feature_test)
+
+            feature_names=countVectorizer.get_feature_names()
+
+            return X_train, X_test, feature_names
 
 
     def get_ngramshashtag_features(self, tweets,tweet_test=None):
