@@ -124,9 +124,9 @@ Once you have run your system over the test data that you have downloaded, you w
 
 1.  Choose a team name and name the files containing your runs in the following way:
 
-    -   `sardistance2020_TeamName_RunNumber_c` for the constrained runs
+    -   `sardistance2020_TeamName_TaskA/B_RunNumber_c` for the constrained runs
 
-    -   `sardistance2020_TeamName_RunNumber_u` for the unconstrained runs
+    -   `sardistance2020_TeamName_TaskA/B_RunNumber_u` for the unconstrained runs
 
 2.  Send all relevant files to the following address: [mirko.lai@unito.it](mirko.lai@unito.it) using the subject “sardistance2020 – TeamName”.
 
